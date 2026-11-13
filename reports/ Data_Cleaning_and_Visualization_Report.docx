@@ -1,0 +1,123 @@
+DATA CLEANING & VISUALIZATION
+
+E-Commerce Data Analysis using the Olist Dataset
+
+Internship Project Report
+
+1. Introduction
+
+This project focuses on understanding, cleaning, preprocessing and visualizing e-commerce data using the Brazilian E-Commerce Public Dataset by Olist. Python and its data analysis libraries were used to inspect the datasets, identify data quality issues, apply appropriate cleaning operations and create visualizations that help communicate patterns in the data.
+
+2. Project Objectives
+
+Understand the structure, columns and data types of the supplied datasets.
+
+Identify missing values and duplicate records.
+
+Standardize text fields and use suitable data types.
+
+Inspect numerical data for potential outliers without automatically deleting valid observations.
+
+Create charts to explore order status, monthly order trends, payment types and customer geography.
+
+Save cleaned datasets and visualizations for further analysis.
+
+3. Dataset Description
+
+The project uses five Olist CSV tables: customers, orders, order items, payments and reviews. These tables describe different parts of the e-commerce process. They are separate relational datasets and should be analyzed with awareness of their different row-level meanings.
+
+Dataset
+
+Description
+
+Customers
+
+Customer identifiers and location information.
+
+Orders
+
+Order status and order-related timestamps.
+
+Order Items
+
+Items associated with individual orders.
+
+Payments
+
+Payment method, installments and payment values.
+
+Reviews
+
+Customer review information associated with orders.
+
+4. Data Understanding and Initial Findings
+
+The customer dataset contained 99,441 rows and 5 columns. The initial inspection reported no missing values and no exact duplicate rows in this table.
+
+A repeated-identifier check found 6,342 records associated with repeated customer_unique_id values, representing 2,997 distinct repeated customer IDs. These are not automatically treated as duplicate records: customer_id identifies a customer record in the table, while customer_unique_id can link multiple records to the same underlying customer. Repeated unique customer IDs can therefore represent returning customers.
+
+5. Data Cleaning and Preprocessing
+
+The cleaning workflow included the following operations:
+
+Loaded the customer, order, order-item, payment and review CSV files into pandas DataFrames.
+
+Removed exact duplicate rows from each loaded table using drop_duplicates().
+
+Standardized customer_city by trimming surrounding whitespace and converting text to lowercase.
+
+Standardized customer_state by trimming surrounding whitespace and converting state codes to uppercase.
+
+Read customer_zip_code_prefix as text because it is an identifier rather than a value used in arithmetic.
+
+Converted order timestamp columns to datetime values using pandas.to_datetime() with errors='coerce'.
+
+Trimmed and lowercased payment_type values.
+
+Inspected missing values after cleaning.
+
+Used the interquartile range (IQR) rule to flag potential outliers in payment_value. The flagged values were inspected and not automatically removed.
+
+Important data-quality decision: missing values were inspected rather than blindly filled or deleted. Some order timestamp fields may legitimately be empty for orders that were cancelled or did not reach a delivery stage. Such values require interpretation before any imputation or removal.
+
+6. Data Visualization
+
+Four visualizations were generated and saved as PNG files in the visualizations folder. The charts are intended to support the following questions:
+
+Order Status Distribution (order_status.png): shows the count of orders in each status category.
+
+Monthly Order Trends (monthly_orders.png): shows how the number of purchased orders changes over time.
+
+Payment Type Distribution (payment_types.png): compares the frequency of payment methods.
+
+Top 10 Customer States (top_customer_states.png): shows the ten states with the largest number of customer records.
+
+Insert or review the generated charts alongside this section before submission. Add one or two sentences describing the actual highest or lowest categories and any visible trend from each chart; those specific values should be taken from the charts or the underlying data rather than guessed.
+
+7. Output Files
+
+Cleaned CSV files are saved in data/processed/.
+
+Generated chart images are saved in visualizations/.
+
+The analysis notebooks are stored in notebooks/.
+
+8. Conclusion
+
+The project established a reproducible workflow for inspecting, cleaning and visualizing the Olist e-commerce datasets. The work included data-type handling, duplicate checks, text standardization, date conversion, missing-value inspection and outlier detection. The resulting visualizations provide an initial view of order activity, payment methods and customer locations. Further analysis could join the tables using their relevant keys and investigate sales, delivery performance, customer retention and review patterns.
+
+9. Tools and Libraries
+
+Python, JupyterLab, pandas, NumPy, Matplotlib and Seaborn.
+
+Before Submission — Final Checks
+
+Confirm that all five cleaned CSV files exist in data/processed/.
+
+Confirm that all four PNG charts exist in visualizations/.
+
+Open each chart and add brief observations in Section 6.
+
+Run all notebook cells from top to bottom without errors.
+
+Save the notebooks after the final successful run.
